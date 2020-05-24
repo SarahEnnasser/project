@@ -27,9 +27,9 @@ public class ProjectApplication { // spring boot app launch class
 		// CommandLineRunner: command line base application
 		return (args) -> {
 			//saving new application to database
-			repository.save(new Application("Trackzilla","kesha.williams","Application for tracking bugs."));
-			repository.save(new Application("Expenses","mary.jones","Application to track expense reports."));
-			repository.save(new Application("Notifications","karen.kane","Application to send alerts and notifications to users."));
+//			repository.save(new Application("Trackzilla","kesha.williams","Application for tracking bugs."));
+//			repository.save(new Application("Expenses","mary.jones","Application to track expense reports."));
+//			repository.save(new Application("Notifications","karen.kane","Application to send alerts and notifications to users."));
             
 			//fetching all the application objects
 			for (Application application : repository.findAll()) {
