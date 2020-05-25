@@ -1,5 +1,7 @@
 package org.proj.service;
 
+import java.util.List;
+
 import org.proj.entity.Ticket;
 import org.proj.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,7 @@ public class TicketServiceImpl implements TicketService {
 	    private TicketRepository ticketRepository;
 
 	    @Override
-	    public Iterable<Ticket> listTickets() {
-	        return ticketRepository.findAll();
+	    public List<Ticket> listTickets() {
+	        return (List<Ticket>) ticketRepository.findAll();
 	    }
-
 }

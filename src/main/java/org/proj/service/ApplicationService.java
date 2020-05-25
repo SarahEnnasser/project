@@ -1,8 +1,11 @@
 package org.proj.service;
 
+import java.util.List;
+
 import org.proj.entity.Application;
 
 public interface ApplicationService {
-	Iterable<Application> listApplications();
+	 List<Application> listApplications();
+	    Application findApplication(long id);
 
 }

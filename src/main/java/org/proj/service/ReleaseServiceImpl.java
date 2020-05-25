@@ -1,5 +1,7 @@
 package org.proj.service;
 
+import java.util.List;
+
 import org.proj.entity.Release;
 import org.proj.repository.ReleaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +14,10 @@ public class ReleaseServiceImpl implements ReleaseService {
 	    private ReleaseRepository releaseRepository;
 
 	    @Override
-	    public Iterable<Release> listReleases() {
-	        return releaseRepository.findAll();
+	    public List<Release> listReleases() {
+	        return (List<Release>) releaseRepository.findAll();
 	    }
+
 
 
 }

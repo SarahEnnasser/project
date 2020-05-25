@@ -1,58 +1,64 @@
 package org.proj.web;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+
 import static org.junit.Assert.assertEquals;
 
-import java.util.stream.StreamSupport;
+
 
 import org.junit.Test;
-import org.mockito.Mock;
-import org.proj.entity.Application;
-import org.proj.repository.ApplicationRepository;
+import org.junit.runner.RunWith;
 import org.proj.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class TzaControllerTest {
-	@Autowired
-    private TzaController controller;
+	 @Autowired
+	    private MockMvc mockMvc;
 
-    @Autowired
-    private ApplicationService applicationService;
+	    @MockBean
+	    ApplicationService applicationService;
 
-    @Autowired
-    private ApplicationRepository applicationRepository;
+	    @Test
+	    public void getAllApplications() throws Exception {
 
-    @Mock
-    private Model model;
+	        //Create a post request with an accept header for application\json
+	        RequestBuilder requestBuilder = MockMvcRequestBuilders
+	                .get("/tza/applications/")
+	                .contentType(MediaType.APPLICATION_JSON);
 
-    @Test
-    public void contextLoads() throws Exception {
-        assertThat(controller).isNotNull();
-    }
+	        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+	        MockHttpServletResponse response = result.getResponse();
 
-    @Test
-    public void retrieveApplications() throws Exception {
-        String returnValue = controller.retrieveApplications(model);
-        assertEquals("applications", returnValue);
-    }
+	        //Assert that the return status is OK
+	        assertEquals(HttpStatus.OK.value(), response.getStatus());
+	    }
 
-    @Test
-    public void retrieveApplicationsFromService() throws Exception {
-        Iterable<Application> applications = applicationService.listApplications();
+	    @Test
+	    public void getAllTickets() throws Exception {
 
-        assertNotNull(applications);
-        assertEquals(5, StreamSupport.stream(applications.spliterator(), false).count());
-    }
+	        //Create a post request with an accept header for application\json
+	        RequestBuilder requestBuilder = MockMvcRequestBuilders
+	                .get("/tza/tickets/")
+	                .contentType(MediaType.APPLICATION_JSON);
 
-    @Test
-    public void retrieveApplicationsFromRepo() throws Exception {
-        Iterable<Application> applications = applicationRepository.findAll();
+	        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+	        MockHttpServletResponse response = result.getResponse();
 
-        assertNotNull(applications);
-        assertEquals(5, StreamSupport.stream(applications.spliterator(), false).count());
-    }
-
+	        //Assert that the return status is OK
+	        assertEquals(HttpStatus.OK.value(), response.getStatus());
+	    }
 }
